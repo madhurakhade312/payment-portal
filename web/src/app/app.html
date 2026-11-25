@@ -1,0 +1,99 @@
+<div class="container-fluid py-4">
+  <div class="row g-4">
+
+    <!-- LEFT: Employee list (col-7) -->
+    <div class="col-7">
+      <div class="card bg-primary text-white shadow">
+        <div class="card-header fw-bold fs-5 border-light">Employee List</div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-light table-striped table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Address</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of empList(); track $index) {
+                  <tr>
+                  <td>{{$index}}</td>
+                  <td>{{item.empName}}</td>
+                  <td>{{item.empMobile}}</td>
+                  <td>{{item.empEmail}}</td>
+                  <td>{{item.city}}</td>
+                  <td>{{item.state}}</td>
+                  <td>{{item.address}}</td>
+                  <td class="text-center text-nowrap">
+                    <button class="btn btn-sm btn-warning me-1" (click)="onEdit(item)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="onDelete(item.empId)">Delete</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Employee form (col-5) -->
+    <div class="col-5">
+      <div class="card bg-primary text-white shadow">
+        <div class="card-header fw-bold fs-5 border-light">Employee Form</div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Employee Name</label>
+              <input type="text" class="form-control" [(ngModel)]="empObj.empName" name="empName" placeholder="Enter name" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mobile</label>
+              <input type="text" class="form-control" [(ngModel)]="empObj.empMobile" name="empMobile" placeholder="Enter mobile number" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="empObj.empEmail" name="empEmail" placeholder="Enter email" />
+            </div>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label class="form-label">City</label>
+                <input type="text" class="form-control" [(ngModel)]="empObj.city" name="city" placeholder="Enter city" />
+              </div>
+              <div class="col-6 mb-3">
+                <label class="form-label">State</label>
+                <input type="text" class="form-control" [(ngModel)]="empObj.state" name="state" placeholder="Enter state" />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <textarea class="form-control" [(ngModel)]="empObj.address" name="address" rows="3" placeholder="Enter address"></textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+              @if (empObj.empId == 0) {
+                <button type="button" class="btn btn-success" (click)="onSaveEmp()">Save</button>
+              } @else {
+                <button type="button" class="btn btn-warning" (click)="onUpdate()">Update</button>
+              }
+              <button type="button" class="btn btn-light" (click)="onReset()">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<router-outlet />
