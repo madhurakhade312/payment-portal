@@ -5,7 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().
+    AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddCors(option =>
 {
@@ -17,8 +21,8 @@ builder.Services.AddCors(option =>
     });
 });
 builder.Services.AddOpenApi();
-builder.Services.AddDbContext<EmployeeDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));  
+builder.Services.AddDbContext<PaymentDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PaymentDb")));  
 
 var app = builder.Build();
 
