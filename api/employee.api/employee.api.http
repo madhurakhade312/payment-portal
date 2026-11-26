@@ -1,6 +1,18 @@
-@employee.api_HostAddress = http://localhost:5033
+@host = http://localhost:5033
 
-GET {{employee.api_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{host}}/api/Transactions
 
 ###
+POST {{host}}/api/Transactions
+Content-Type: application/json
+
+{ "merchantName": "Acme Store", "amount": 1250.50, "status": "Pending" }
+
+###
+PUT http://localhost:5033/api/Transactions/1
+Content-Type: application/json
+
+{ "transactionId": 1, "merchantName": "Acme Store", "amount": 999.00, "status": "Completed" }
+
+###
+DELETE http://localhost:5033/api/Transactions/1
